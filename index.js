@@ -1,8 +1,20 @@
-const TelegramApi = require('node-telegram-bot-api')
+const telegramApi = require('node-telegram-bot-api');
 
-const token = '5840214485:AAFZtZ9DF7w9zmaiaANqBxIaAAgAiu1p3Bs'
+const token = '5840214485:AAFZtZ9DF7w9zmaiaANqBxIaAAgAiu1p3Bs';
 
-const bot = new TelegramApi(token, {polling: true})
+const bot = new telegramApi(token, {polling: true});
+
+const chats = {};
+
+const buyOptions = {
+    replay_markup: JSON.stringify(
+        inline_keyboard: [
+            [{text: 'Текст кнопки', callback_data: 'Какая-то информация'}]
+        ]
+    )
+}
+
+
 
 const start = () => {
     bot.setMyCommands([
@@ -16,12 +28,30 @@ const start = () => {
     
         if (text === '/start') {
             await bot.sendSticker(chatId, 'https://stickerpacks.ru/wp-content/uploads/2022/10/nabor-stikerov-s-hasbikom-4-12.webp');
-            return bot.sendMessage(chatId, `Добро пожаловать в мой первый телеграм бот`)
+            return bot.sendMessage(chatId, `Добро пожаловать в сервис для автоматического пополнения баланса Steam. \nЗдесь вы можете пополнить кошелёк Steam на нужную сумму разными способами. К оплате принимаются карты, кошельки и даже криптовалюта!`)
         }
         if (text === '/info') {
             return bot.sendMessage(chatId, `Тебя зовут ${msg.from.first_name} ${msg.from.last_name}`);
         }
-        return bot.sendMessage(chatId, 'Я тебя не понимаю, попробуй ещё раз!')
+        if (text === '/pay') {         
+
+            const accountDeposit = '';
+            const faq = '';
+            const accountInfo = '';
+            const botInfo = '';
+            const accountOrders = '';
+
+
+            const balanceProfile = 0; // Баланс пользователя
+            const accountId = ''; 
+            const priceSelect = [100, 200, 500];
+
+            await bot.sendMessage(chatId, `Выберите нужный пункт меню для оплаты`);
+            return bot.sendMessage(chatId, '123', buyOptions);
+
+        }
+
+        return bot.sendMessage(chatId, 'Некорректная команда. Попробуйте ещё раз')
 
     })
 }
