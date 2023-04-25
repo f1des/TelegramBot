@@ -1,5 +1,5 @@
 const telegramApi = require('node-telegram-bot-api');
-//const { Keyboard } = require('telegram-keyboard');
+//const { Keyboard } = require('np');
 
 const token = '5840214485:AAFZtZ9DF7w9zmaiaANqBxIaAAgAiu1p3Bs';
 const bot = new telegramApi(token, { polling: true });
