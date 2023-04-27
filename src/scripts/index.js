@@ -1,4 +1,4 @@
-import { buyOptions, moneyOptions } from './utlis/constants.js';
+import { buyOptions, moneyOptions, metodPaymentOptions, faqOptions  } from './utlis/constants.js';
 import telegramApi from 'node-telegram-bot-api';
 //import { Telegraf } from 'telegraf';
 import config from 'config';
@@ -21,16 +21,7 @@ const start = () => {
         await bot.sendSticker(chatId, 'https://ie.wampi.ru/2023/04/26/84419_640.webp');
         return bot.sendMessage(chatId, 'Добро пожаловать в сервис для пополнения баланса Steam. \nВыберите нужный пункт меню', buyOptions);
 
-      // case '/buy':
-        // const accountDeposit = '';
-        // const faq = '';
-        // const accountInfo = '';
-        // const botInfo = '';
-        // const accountOrders = '';
-        // const balanceProfile = 0; // Баланс пользователя
-        // const accountId = '';
-        // const priceSelect = [100, 200, 500];
-
+      // case '/buy':     
         // return bot.sendMessage(chatId, 'Выберите нужный пункт меню', buyOptions);
 
       default:        
@@ -41,8 +32,6 @@ const start = () => {
   // Необходимо обработать событие callback_query, которое возникает, когда пользователь нажимает на кнопку. В примере кода используется метод bot.editMessageText(), который позволяет изменить текст сообщения, отправленного ботом
   bot.on('callback_query', (callbackQuery) => {
     const chatId = callbackQuery.message.chat.id;
-    //const text = message.text;
-    //const messageId = callbackQuery.message.message_id;
     const queryData = callbackQuery.data;
 
     if (queryData === 'money_steam') {

@@ -36,6 +36,45 @@ const moneyOptions = {
   })
 };
 
+const metodPaymentOptions = {
+  reply_markup: JSON.stringify({
+    inline_keyboard: [
+        [
+          { text: 'Оплатить через QIWI', callback_data: 'category_qiwi' }
+        ],
+        [
+          { text:'Назад', callback_data: 'category_back' }
+        ]
+      ]
+  })
+};
+
+const faqOptions = {
+  reply_markup: JSON.stringify({
+    inline_keyboard: [
+        [
+          { text: 'Требования к аккаунту', callback_data: 'category_faq1' },
+          { text: 'Что такое логин в Steam', callback_data: 'category_faq2' },
+          { text: 'В течение какого времени проходит оплата', callback_data: 'category_faq3' },
+          { text: 'Пришла сумма меньше, чем в калькуляторе, что делать?', callback_data: 'category_faq4' },
+          { text: 'Возврат средств', callback_data: 'category_faq5' },
+        ],
+        [
+          { text:'Назад', callback_data: 'category_back' }
+        ]
+      ]
+  })
+};
+
+// const accountDeposit = '';
+// const faq = '';
+// const accountInfo = '';
+// const botInfo = '';
+// const accountOrders = '';
+// const balanceProfile = 0; // Баланс пользователя
+// const accountId = '';
+// const priceSelect = [100, 200, 500];
 
 
-export { buyOptions, moneyOptions };
+
+export { buyOptions, moneyOptions, metodPaymentOptions, faqOptions };
