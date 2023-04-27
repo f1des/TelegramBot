@@ -1,11 +1,9 @@
-import { buyOptions } from './utlis/constants.js';
+import { buyOptions, moneyOptions } from './utlis/constants.js';
 import telegramApi from 'node-telegram-bot-api';
-
-// Поменять токен, работа с сервером
-import { Telegraf } from 'telegraf';
+//import { Telegraf } from 'telegraf';
 import config from 'config';
 
-const bot = new telegramApi(config.get('TELEGRAM_TOKEN'), { polling: true });
+const bot = new telegramApi(config.get('TELEGRAM_TOKEN'), { polling: true }); //Поменять токен, работа с сервером
 
 const start = () => {
   bot.setMyCommands([
@@ -35,21 +33,56 @@ const start = () => {
 
         // return bot.sendMessage(chatId, 'Выберите нужный пункт меню', buyOptions);
 
-      default:
-        return bot.sendMessage(chatId, 'Некорректная команда. Попробуйте ещё раз');
+      default:        
+        //return bot.sendMessage(chatId, 'Некорректная команда. Попробуйте ещё раз');
     }
   });
   
   // Необходимо обработать событие callback_query, которое возникает, когда пользователь нажимает на кнопку. В примере кода используется метод bot.editMessageText(), который позволяет изменить текст сообщения, отправленного ботом
   bot.on('callback_query', (callbackQuery) => {
     const chatId = callbackQuery.message.chat.id;
-    const messageId = callbackQuery.message.message_id;
-    const data = callbackQuery.data;
+    //const text = message.text;
+    //const messageId = callbackQuery.message.message_id;
+    const queryData = callbackQuery.data;
+
+    if (queryData === 'money_steam') {
+      const message = 'Пополнить Steam.  \n\n Введите Ваш логин Steam \n\n Что такое логин можно узнать в разделе "FAQ"';
+      const replyMarkup = message.text;
+      // Условие проверки логина на ввод
+      
+      bot.editMessageText(message, { chat_id: chatId, message_id: callbackQuery.message.message_id, reply_markup: replyMarkup });
+
+      //Bспользуем метод bot.once() для ожидания следующего сообщения от пользователя
+      bot.once('message', (msg) => {
+        if (msg.text) {
+          bot.sendMessage(chatId, 'Ваш логин: ' + msg.text);          
+          if (msg.text) { // Сделать проверку на ввод логина с серверов
+            bot.sendMessage(chatId, 'Введите сумму пополнения или выберите из популярных', moneyOptions);
+          } else {
+            bot.sendMessage(chatId, 'Извините, ваш логин некорректный, попробуйте ещё раз!');
+          }
+
+          // Дописать условия
+           
+          // 
+
+          
+
+        } else {
+          bot.sendMessage(chatId, 'Введен некорректный логин, пожалуйста, попробуйте ввести ещё раз!');
+        }
+
+      });     
+    }
+
+    // else if (){
+
+    // }
   
-    bot.editMessageText(data, {
-      chat_id: chatId,
-      message_id: messageId
-    });
+    // bot.editMessageText(queryData, {
+    //   chat_id: chatId,
+    //   message_id: messageId
+    // });
   });
 
 };
